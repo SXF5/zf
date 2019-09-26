@@ -69,6 +69,14 @@ public class TeacherService {
 		}
 		return false;
 		}
+	
+	public List<Teacher> getteacherpower(){
+	return	teacherDao.getteacherpower();
+		
+	}
+	public int updatepower(Teacher teacher) {
+		return teacherDao.updatepower(teacher);
+	}
 		
 
 }

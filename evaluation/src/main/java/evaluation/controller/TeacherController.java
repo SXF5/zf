@@ -15,10 +15,6 @@ import evaluation.entity.Teacher;
 import evaluation.service.TeacherService;
 import evaluation.util.Page;
 
-
-
-
-
 @Controller
 @RequestMapping("/teacher")
 public class TeacherController {

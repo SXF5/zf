@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</resultMap>
 
- <select id="getTeachersmajor" resultMap="teachertm">
+      <select id="getTeachersmajor" resultMap="teachertm">
       	select * from teacher,major where	teacher.majorid=major.majorid;
       </select>
 
@@ -64,7 +64,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set name=#{name},teachernumber=#{teachernumber},sex=#{sex},password=#{password},
 		power=#{power},majorid=#{majorid} where teacherid=#{teacherid}
 	  </update>
-     
-      
+	  
+     <select id="getteacherpower"  resultType="evaluation.entity.Teacher">
+     select * from teacher 
+     </select>
+      <update id="updatepower"  >
+       update teacher set power=#{power} where teacherid=#{teacherid}
+    
+     </update>
 
 </mapper>

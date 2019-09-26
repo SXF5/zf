@@ -24,8 +24,8 @@ public interface TeacherDao {
 	
 	int updateTeacher(Teacher teacher);
 	
-
-	
+    List<Teacher> getteacherpower();
+	int updatepower(Teacher teacher);
 	
 	Teacher getTeacher(Teacher teacher);
 

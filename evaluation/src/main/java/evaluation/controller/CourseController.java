@@ -109,7 +109,13 @@ public class CourseController {
 		mv.addObject("list",list);
 		return mv;
 	}
-	
+	//课程信息excel导入
+	@RequestMapping("courseimport")
+	public ModelAndView courseimport() {
+		ModelAndView mv = new ModelAndView("course/course-import");
+		
+		return mv;
+	}
 	
 	
 }

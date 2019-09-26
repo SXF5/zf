@@ -80,8 +80,6 @@
 									<tr>
 										<td><input type="checkbox" name="" lay-skin="primary" >
 										</td>
-										
-										<%-- <td id="studentid">${item.studentid}</td> --%>
 										<td>${item.studentnumber}</td>
 										<td>${item.name}</td>
 										<td>${item.sex}</td>
@@ -134,6 +132,7 @@
         </div> 
     </body>
     <script>
+    //获取当前日期（yyyy-MM-dd）格式
     function dateFormat (date, format) {
 	    date = new Date(date);
 	    date.setHours(date.getHours()-14);
@@ -157,11 +156,9 @@
 	    return format;
 	}
 	
-    
+    //计算年龄函数
     function jsageall(){
-    
-        
-		   var ids = []; 
+ 		   var ids = []; 
 	        // 获取选中的id 
 	        $("td[name='bird']").each(function(index, el) {	
 	        	var stunumber=$(this).html();
@@ -206,9 +203,7 @@
         layui.use(['laydate','form'], function(){
         var laydate = layui.laydate;
         var  form = layui.form;
-
-
-        // 监听全选
+       // 监听全选
         form.on('checkbox(checkall)', function(data){
 
           if(data.elem.checked){
@@ -231,10 +226,6 @@
 
 
       });
-
-     
-     
-
       /*用户-删除*/
       function member_del(obj,studentid){
     	
@@ -285,7 +276,7 @@
             
         });
       }	
-      
+      //调用年龄函数
       window.onload=function(){
    	   jsageall();
       }
