@@ -9,8 +9,6 @@ import evaluation.dao.TeacherDao;
 import evaluation.entity.Course;
 import evaluation.entity.Teacher;
 
-import evaluation.util.Page;
-
 
 @Service
 public class TeacherService {
@@ -18,7 +16,11 @@ public class TeacherService {
 	//注入接口
 	@Autowired
 	private TeacherDao teacherDao;
-	
+
+	//查询所有教师	
+	public List<Teacher> getTeachers(){
+		return teacherDao.getTeachers();
+	}
 
 	//分页
 

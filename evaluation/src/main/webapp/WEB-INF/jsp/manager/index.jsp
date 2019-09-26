@@ -7,7 +7,7 @@
         <title>后台登录-教师综合评价系统</title>
         <meta name="renderer" content="webkit|ie-comp|ie-stand">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <!-- <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" /> -->
         <meta http-equiv="Cache-Control" content="no-siteapp" />
         <link rel="stylesheet" href="../X-admin/css/font.css">
         <link rel="stylesheet" href="../X-admin/css/xadmin.css">
@@ -150,32 +150,32 @@
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('学生信息','welcome1.html')">
+                                <a onclick="xadmin.add_tab('学生信息','${pageContext.request.contextPath}/student/studentimport')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>学生信息导入</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('教师信息','welcome1.html')">
+                                <a onclick="xadmin.add_tab('教师信息','${pageContext.request.contextPath}/teacher/teacherimport')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>教师信息导入</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('课程信息','welcome1.html')">
+                                <a onclick="xadmin.add_tab('课程信息导入' , '${pageContext.request.contextPath}/course/courseimport')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>课程信息导入</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('专业信息','welcome1.html')">
+                                <a onclick="xadmin.add_tab('专业信息','${pageContext.request.contextPath}/major/majorimport')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>专业信息导入</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('院系信息','welcome1.html')">
+                                <a onclick="xadmin.add_tab('院系信息','${pageContext.request.contextPath}/faculty/facultyimport')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>院系信息导入</cite></a>
                             </li> 
                             <li>
-                                <a onclick="xadmin.add_tab('授课信息','welcome1.html')">
+                                <a onclick="xadmin.add_tab('授课信息','${pageContext.request.contextPath}/teaching/teachingimport')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>授课信息导入</cite></a>
                             </li>  

@@ -2,13 +2,12 @@ package evaluation.dao;
 
 import java.util.List;
 
+import evaluation.entity.Teacher;
 import org.apache.ibatis.annotations.Param;
 
-import evaluation.entity.Teacher;
-
-
 public interface TeacherDao {
-	
+	List<Teacher> getTeachers();
+
 	List<Teacher> getTeachersmajor();	
 	//根据id查询
 	Teacher getTeacherByid(int teacherid);

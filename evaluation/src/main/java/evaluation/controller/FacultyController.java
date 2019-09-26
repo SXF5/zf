@@ -1,18 +1,23 @@
 package evaluation.controller;
 
+import java.io.InputStream;
 import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import evaluation.entity.Course;
 import evaluation.entity.Faculty;
 import evaluation.service.FacultyService;
+import evaluation.util.Excelutil;
 import evaluation.entity.Result;
+import evaluation.entity.Teacher;
 
 @Controller
 @RequestMapping("/faculty")
@@ -118,4 +123,37 @@ public class FacultyController {
 			mv.addObject("faculties",list);
 			return mv;
 		}
+	
+	//Excel
+		@RequestMapping("facultyimport")
+		public String test() {
+			return "/faculty/faculty-import";
+		}
+		
+		//Excelutil 
+		@RequestMapping("Excelfaculty")
+		public String excelin(MultipartFile file,ModelMap map) throws Exception {
+			InputStream in = file.getInputStream();
+	        Faculty faculty =null;
+	        List<List<Object>> listob = null;
+	        listob=new Excelutil().getBankListByExcel(in, file.getOriginalFilename());
+	        in.close();
+	        int result = 0;
+	        for(int i=0;i<listob.size();i++) {
+	        	List<Object> li = listob.get(i);
+	        	faculty = new Faculty();
+	        	faculty.setFacultynumber(String.valueOf(li.get(0)));
+	        	faculty.setFacultyname(String.valueOf(li.get(1)));
+	        	result = facultyService.insertFaculty(faculty);
+	        }
+	        //System.out.println(result);
+	        if (result>0) {
+	         	map.put("reslut1", 1);
+	 		}else {
+	 			map.put("reslut1", 2);
+	 		}
+	       return "teacher/teacher-import";
+		}
+		
+		
 }

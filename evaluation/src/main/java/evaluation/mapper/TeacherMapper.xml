@@ -33,26 +33,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       	select * from teacher,major where	teacher.majorid=major.majorid;
       </select>
 
-
+		<!-- 教师编号密码查询 -->
       <select id="getTeacher" parameterType="evaluation.entity.Teacher" resultType="evaluation.entity.Teacher">
 		select * from teacher where teachernumber=#{teachernumber} and password=#{password}
+      </select>     
+      <!-- 所有教师查询 -->
+      <select id="getTeachers" resultType="evaluation.entity.Teacher">
+		select * from teacher 
       </select>   
 
-<!-- 分页 -->
-	  <select id="getTeachers" parameterType="evaluation.util.Page" resultType="evaluation.entity.Teacher">
-		select * from teacher order by teacherid asc limit #{pageIndex},#{pageSize}
-      </select>
+
       
 <!-- 根据id查询教师 -->
       <select id="getTeacherByid" parameterType="int" resultType="evaluation.entity.Teacher">
        select * from teacher where teacherid=#{teacherid};
      </select>
+
       
 <!-- 查询一组信息 -->     
       <select id="getCount" resultType="int">
 		select count(1) from teacher 
 	  </select>
-	  
+
 <!-- 根据账号查询一组信息 -->	  
       <select id="getTeacherByNum" parameterType="String" resultType="int">
 		select count(1) from teacher where teachernumber=#{teachernumber}
@@ -88,7 +90,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <!-- 模糊查询 -->
      	<select id="mhselect" parameterType="String" resultType="evaluation.entity.Teacher">
      		select * from teacher where name like '%${name}%'
-     	
      	</select>      
 
 

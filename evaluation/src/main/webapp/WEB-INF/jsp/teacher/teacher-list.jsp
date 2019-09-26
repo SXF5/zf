@@ -8,11 +8,13 @@
         <title>教师信息</title>
         <meta name="renderer" content="webkit|ie-comp|ie-stand">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <!-- <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" /> -->
         <meta http-equiv="Cache-Control" content="no-siteapp" />
         <link rel="stylesheet" href="../X-admin/css/font.css">
         <link rel="stylesheet" href="../X-admin/css/xadmin.css">
-        <script src="../X-admin/lib/layui/layui.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="../X-admin/lib/layui/css/layui.css">
+        <script type="text/javascript" src="../X-admin/lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../X-admin/js/jquery.min.js" charset="utf-8"></script>
         <script type="text/javascript" src="../X-admin/js/xadmin.js"></script>
         <style type="text/css">
     		.layui-table td, .layui-table th {
@@ -37,12 +39,6 @@
                     <div class="layui-card">
                         <div class="layui-card-body ">
                             <form class="layui-form layui-col-space5" action="${pageContext.request.contextPath}/teacher/mselect">
-<!--                                 <div class="layui-inline layui-show-xs-block"> -->
-<!--                                     <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start"> -->
-<!--                                 </div> -->
-<!--                                 <div class="layui-inline layui-show-xs-block"> -->
-<!--                                     <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end"> -->
-<!--                                 </div> -->
                                 <div class="layui-inline layui-show-xs-block">
                                     <input id="mlike" type="text" name="name"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
                                 </div>
@@ -56,42 +52,43 @@
                             <button class="layui-btn layui-btn-lg" onclick="xadmin.open('添加教师','add',600,400)"><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body layui-table-body layui-table-main">
-                            <table class="layui-table layui-form">
-                                <thead>
-                                  <tr>
-                                    <th>
-                                      <input type="checkbox" lay-filter="checkall" name="" lay-skin="primary">
-                                    </th>
-                                    <th>ID</th>
-                                    <th>姓名</th>
-                                    <th>账号</th>
-                                    <th>性别</th>
-                                    <th>密码</th>
-                                    <th>电话</th>
-                                    <th>生日</th>
-                                    <th>专业</th>
-                                    <th>权限</th>
-                                    <th>备注</th>
-                                    <th>操作</th></tr>
-                                </thead>
-                                <tbody id="test1">
-                                <c:forEach var="teacher" items="${teachers}" varStatus="item">
-                                  <tr>
-                                    <td>
-                                      <input type="checkbox" name="id" value="1"   lay-skin="primary"> 
-                                    </td>
-                                    <td>${teacher.teacherid}</td>
-                                    <td>${teacher.name}</td>
-                                    <td>${teacher.teachernumber}</td>
-                                    <td>${teacher.sex}</td>
-                                    <td>${teacher.password}</td>
-                                    <td>${teacher.phone}</td>
-                                    <td>${teacher.birthday}</td>
-                                    <td>${teacher.maj.majorname}</td>
-                                    <td>${teacher.power}</td>
-                                    <td>${teacher.remarks}</td>
-
-                                    <td class="td-manage">                                     
+                            <table class="layui-table" lay-filter="mylist" lay-size="lg">
+							<thead>
+								<tr>
+									<th lay-data="{type:'checkbox',fixed:'left'}">
+									<input type="checkbox" lay-filter="checkall" name="" lay-skin="primary"></th>
+									<th lay-data="{field:'xx', align:'center',width:60}">id</th>
+									<th lay-data="{field:'name', align:'center',width:60}">姓名</th>
+									<th lay-data="{field:'number',align:'center', Width:60}">账号</th>
+									<th lay-data="{field:'sex',align:'center', Width:60}">性别</th>
+									<th lay-data="{field:'password',align:'center', Width:60}">密码</th>
+									<th lay-data="{field:'tel',align:'center', Width:120}">电话</th>
+									<th lay-data="{field:'detail',align:'center', Width:120}" style="display:none !important">生日详情</th>
+									<th lay-data="{field:'birthday',align:'center', Width:60}">生日</th>
+									<th lay-data="{field:'age',align:'center', Width:60}">年龄</th>
+					                <th lay-data="{field:'major',align:'center', Width:60}">专业</th>
+					                <th lay-data="{field:'power',align:'center', Width:60}">权限</th>
+					                <!-- <th lay-data="{field:'xx7',align:'center', Width:60}">备注</th> -->
+									<th lay-data="{field:'option',align:'center',width:280,fixed: 'right'}">操作</th>                              
+								</tr> 
+							</thead>
+							<tbody>
+							<c:forEach items="${teachers}" var="teacher">
+								<tr>
+									<td><input type="checkbox" name=""  lay-skin="primary"></td>
+									<td>${teacher.teacherid}</td>
+					                <td>${teacher.name}</td>
+					                <td>${teacher.teachernumber}</td>
+					                <td>${teacher.sex}</td>
+					                <td>${teacher.password}</td>
+					                <td>${teacher.phone}</td>
+					                <td id="bir${teacher.teacherid}" name="bird" style="display:none !important">${teacher.birthday}</td>
+					                <td id="birthday${teacher.teacherid}"></td>
+					                <td id="b${teacher.teacherid}" >	
+					                <td>${teacher.majorid}</td>
+					                <td>${teacher.power}</td>
+					                <%-- <td>${teacher.remarks}</td>  --%>
+									<td class="td-manage">                                     
                                       <button class="layui-btn layui-btn"  onclick="xadmin.open('编辑','update?teacherid=${teacher.teacherid}',600,400)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>编辑
                                       </button>
@@ -101,31 +98,117 @@
                                       <button class="layui-btn-danger layui-btn" onclick="del('${teacher.teachernumber}')" href="javascript:;">
                                         <i class="layui-icon">&#xe640;</i>删除
                                       </button>
-
                                     </td>
-                                  </tr> 
-                                   </c:forEach>                                 
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="layui-card-body ">
-                            <div class="page">
-                                <div>
-                                  <a class="prev" href="">&lt;&lt;</a>
-                                  <span class="current" >1</span>
-                                  <a class="num" href="teacher-page?pageIndex=2">2</a>
-                                  <a class="num" href="teacher-page?pageIndex=3">3</a>
-                                  <a class="num" href="">${totalPageCount}</a>
-                                  <a class="next" href="teacher-page?pageInde+1">&gt;&gt;</a>
-                                </div>
-                            </div>
-                        </div>
+					               </tr>
+								</c:forEach>
+							</tbody>  
+						</table>
+                        </div>                                              
                     </div>
                 </div>
             </div>
-        </div> 
+         </div> 
     </body>
-    <script>
+    <script type="text/javascript">
+    
+   $(function(){
+    	layui.use('table',function(){
+    	       var table = layui.table;
+    	       //转换静态表格
+    	       table.init('mylist', {
+    	           height: '455' //高度最大化减去差值,也可以自己设置高度值：如 height:300
+    	           ,count: 50 //数据总数 服务端获得
+    	           ,limit: 7 //每页显示条数 注意：请务必确保 limit 参数（默认：10）是与你服务端限定的数据条数一致
+    	           ,page:true //开启分页    	           	          
+    	           ,limits:[7, 10, 20, 30, 35,40,50]//分页显示每页条目下拉选择    	          
+    	       });
+    	});
+    	
+    	//监听头工具栏事件
+		/* table.on('toolbar(mylist)', function(obj){
+			var checkStatus = table.checkStatus(obj.config.id)
+			,data = checkStatus.data; //获取选中的数据 
+			switch(obj.event){ 
+			 case 'add': 
+				
+			break;
+			case 'update':
+				
+			break;
+			case 'delete':
+				
+			break; 
+			};
+		}); */
+    });
+ //生日转换
+   function dateFormat (date, format) {
+	    date = new Date(date);
+	    date.setHours(date.getHours()-14);
+	    var o = {
+	        'M+' : date.getMonth() + 1, //month
+	        'd+' : date.getDate(), //day
+	        'H+' : date.getHours(), //hour
+	        'm+' : date.getMinutes(), //minute
+	        's+' : date.getSeconds(), //second
+	        'q+' : Math.floor((date.getMonth() + 3) / 3),
+	        'S' : date.getMilliseconds() //millisecond
+	    };
+
+	    if (/(y+)/.test(format))
+	        format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+
+	    for (var k in o)
+	        if (new RegExp('(' + k + ')').test(format))
+	            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
+
+	    return format;
+	}
+	
+     
+   function jsageall(){
+   
+       
+		   var ids = []; 
+	        // 获取选中的id 
+	        $("td[name='bird']").each(function(index, el) {	
+	        	var stunumber=$(this).html();
+	        	
+	               ids.push(stunumber)
+	           
+	        });
+	         var aa=ids.toString();
+	         var aa1 = new Array();
+	        	 aa1=aa.split(",");
+	        	 for(i=0;i<aa1.length;i++){
+	        		 var s_time = dateFormat(aa1[i],'yyyy-MM-dd');
+	        		 var csrq =s_time;	        	  	 
+	        	        var age = '';
+	        	        var d = new Date();
+	        	        var year = d.getFullYear();
+	        	        var month = d.getMonth() + 1;
+	        	        var day = d.getDate();
+	        	        if (month < 10) {
+	        	            month = '0'+month;
+	        	        }
+	        	        if(day < 10){
+	        	            day = '0'+day;
+	        	        }
+	        	        var now = year+'-'+month+'-'+day;
+	        	        if (now.substring(0,4) >= csrq.substring(0,4) && now.substring(5,7) >=csrq.substring(5,7) 
+	        	            && now.substring(8,10)>=csrq.substring(8,10)) {
+	        	            age = year - parseInt(csrq.substring(0,4));
+	        	        }else{
+	        	            age = year - parseInt(csrq.substring(0,4)) - 1;
+	        	        }
+	        	        var s=i+1;
+	        	       $("#birthday"+s).html(s_time);
+	        	         $("#b"+s).html(age); 
+	        		
+	        	 }
+	         
+	};
+    // 表单 
       layui.use(['laydate','form'], function(){
         var laydate = layui.laydate;
         var  form = layui.form;
@@ -151,22 +234,7 @@
         laydate.render({
           elem: '#end' //指定元素
         });
-      });  
-      //分页实现
-      laypage.render({
-    	  elem: 'test1'
-    	  ,count: 50 //数据总数，从服务端得到
-    	  ,jump: function(obj, first){
-    	    //obj包含了当前分页的所有参数，比如：
-    	    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-    	    console.log(obj.limit); //得到每页显示的条数
-    	    
-    	    //首次不执行
-    	    if(!first){
-    	      //do something
-    	    }
-    	  }
-    	});
+      });       
 
       /*用户-删除*/
       function del(teachernumber){
@@ -238,5 +306,10 @@
      		 }
      	 })
       }
+    </script>
+    <script type="text/javascript">
+    window.onload=function(){
+    	   jsageall();
+       }
     </script>
 </html>
