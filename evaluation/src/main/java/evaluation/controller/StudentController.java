@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import evaluation.entity.Classtb;
 
 import evaluation.entity.Student;
 import evaluation.service.ClasstbService;
@@ -39,9 +38,12 @@ public class StudentController {
 		return mv;
 	}
 	
-//	//修改页面
-//	@RequestMapping("/studentedit")
-//	public ModelAndView studentedit(int studentid) {
+	//学生主页面
+	@RequestMapping("/index")
+	public ModelAndView index() {
+		ModelAndView mv = new ModelAndView("student/index");
+		return mv;
+	}
 
 //年龄计算
 	@RequestMapping("/getAge")
