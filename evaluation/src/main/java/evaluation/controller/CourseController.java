@@ -1,16 +1,22 @@
 package evaluation.controller;
 
+import java.io.InputStream;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import evaluation.entity.Course;
 import evaluation.entity.ResultMsg;
 import evaluation.service.CourseService;
+import evaluation.util.Excelutil;
+
 
 @Controller
 @RequestMapping("/course")
@@ -70,7 +76,7 @@ public class CourseController {
 		}
 	}
 	
-	//删除
+/*	//删除
 	@RequestMapping("byidcourse")
 	@ResponseBody
 	public ResultMsg byidcourse(int courseid) {
@@ -80,13 +86,13 @@ public class CourseController {
 		}else {
 			return new ResultMsg(2, "删除 失败");
 		}
-	}
+	}*/
     
 	//批量删除
 	@RequestMapping("byincourse")
 	@ResponseBody
 	public ResultMsg byincourse(String ids) {
-		System.out.println(ids);
+		//System.out.println(ids);
 		String[] courseids = ids.split(",");
 		int i = courseService.byincourse(courseids);
 		if(i>0) {
@@ -109,7 +115,46 @@ public class CourseController {
 		mv.addObject("list",list);
 		return mv;
 	}
+
+	//课程信息excel导入
+	@RequestMapping("courseimport")
+	public ModelAndView courseimport() {
+		ModelAndView mv = new ModelAndView("course/course-import");
+		
+		return mv;
+	}
+
 	
+
 	
+	/*@RequestMapping("courseimport")
+	public String test() {
+		return "/course/course-import";
+	}*/
 	
+	//Excelutil 
+	@RequestMapping("Excelin")
+	public String excelin(MultipartFile file,ModelMap map) throws Exception {
+		InputStream in = file.getInputStream();
+        Course course = null;
+        List<List<Object>> listob = null;
+        listob=new Excelutil().getBankListByExcel(in, file.getOriginalFilename());
+        in.close();
+        int result = 0;
+        for(int i=0;i<listob.size();i++) {
+        	course = new Course();
+        	List<Object> li = listob.get(i);
+        	course.setCoursenumber(String.valueOf(li.get(0)));
+        	course.setCoursename(String.valueOf(li.get(1)));
+        	course.setMajorid(Integer.valueOf((String) li.get(2)));
+        	result = courseService.addcourse(course);
+        }
+        //System.out.println(result);
+        if (result>0) {
+         	map.put("reslut1", 1);
+ 		}else {
+ 			map.put("reslut1", 2);
+ 		}
+       return "course/course-import";
+	}
 }

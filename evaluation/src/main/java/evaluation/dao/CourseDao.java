@@ -21,4 +21,5 @@ public interface CourseDao {
 	int byincourse(String[] ids);
 	//模糊查询
 	List<Course> mhselect(@Param("coursename")String coursename);
+	
 }

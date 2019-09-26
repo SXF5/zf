@@ -4,44 +4,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="evaluation.dao.FacultyDao">
 
-
-
-            
-
+<!-- 新增院系 -->
 <insert id="addFaculty" parameterType="evaluation.entity.Faculty">
         insert into faculty(facultynumber,facultyname) values(#{facultynumber},#{facultyname});
 </insert>
 
+<!-- 删除院系 -->
 <delete id="delFaculty" parameterType="int">
          delete from faculty where facultyid=#{facultyid}
 </delete>
 
+<!-- 修改院系 -->
 <update id="updateFaculty" parameterType="evaluation.entity.Faculty">
 		update faculty set facultynumber=#{facultynumber},facultyname=#{facultyname} where facultyid=#{facultyid}
 </update>
 
+<!-- 查询所有院系 -->
 <select id="getFaculty"  resultType="evaluation.entity.Faculty">
 		select * from faculty
 </select>
 
+<!--根据id查询院系  -->
 <select id="getFacultybyId" parameterType="int" resultType="evaluation.entity.Faculty">
 		select * from faculty where facultyid=#{facultyid}
 </select>
-  
+
+<!-- 根据id查询一组信息 -->
 <select id="isFaculty" parameterType="int" resultType="int">
  select count(1) from faculty where facultyid=#{facultyid}
 </select> 
-     
+
+<!-- 根据院系名查询一组信息 -->     
 <select id="isFacultybyname" parameterType="String" resultType="int">
  select count(1) from faculty where facultyname=#{facultyname}
-</select>     
-   
+</select> 
+    
+<!-- 根据多个id批量删除院系-->   
  <delete id="delchecked" parameterType="list">
 	delete from faculty where facultyid in 
 	<foreach collection="array" item="ids1" open="(" close=")" separator=",">
 	#{ids1}
     </foreach>
 </delete> 
-               
+
+<!-- 模糊查询 -->
+     	<select id="mhselect" parameterType="String" resultType="evaluation.entity.Faculty">
+     		select * from faculty where facultyname like '%${facultyname}%'
+     	
+     	</select>               
 
 </mapper>

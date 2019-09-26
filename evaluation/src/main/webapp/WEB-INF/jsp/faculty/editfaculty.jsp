@@ -85,7 +85,7 @@
                 
 
             });
-        
+        /*修改*/
         function updateFaculty(){
         	var url = "${pageContext.request.contextPath}/faculty/update_submit";
         	var param = $("#form").serialize();

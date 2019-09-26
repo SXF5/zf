@@ -4,9 +4,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="evaluation.dao.StudentDao">
      
-      
+      <!-- 查询所有学生 关联班级 -->
       <resultMap id="studentm" type="evaluation.entity.Student">
-      
 		<id property="studentid" column="studentid" />
 		<result property="name" column="name" />
 		<result property="sex" column="sex" />
@@ -22,7 +21,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<result property="classnumber" column="classnumber" />
 			<result property="classname" column="classname" />
 		</association>
-		
 	</resultMap>
 	
       <select id="getStus" resultMap="studentm">
@@ -30,19 +28,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		student.classid=classtb.classid
       </select>
       
+      <!-- 根据id查询学生 -->
        <select id="getStudentBystuid"  resultMap="studentm">
 	   select * from student,classtb where studentid=#{studentid} and student.classid=classtb.classid
 	  </select>
 	  
+
+	  <!-- 添加学生 -->
+	  <insert id="studentadd" parameterType="evaluation.entity.Student">
+	  insert into student (studentnumber,name,password,power,classid)values(#{studentnumber},#{name},#{password},#{power},#{classid})
+	  </insert>
+	  <!-- 修改学生 -->
 	  <update id="updateStudent" >
 	  update student set studentnumber=#{studentnumber},classid=#{classid} where studentid=#{studentid} 
-	  
 	  </update>
 	  
+	  <!-- 根据id删除学生 -->
 	  <delete id="studentdel">
 	  delete from student where studentid=#{studentid}	  
 	  </delete>
 	  
+	  <!-- 根据多个id批量删除学生 -->
 	  <delete id="studentall" parameterType="String">
 	   delete from student where studentnumber in
 	   <foreach collection="array" item="aa1" open="(" separator="," close=")">
