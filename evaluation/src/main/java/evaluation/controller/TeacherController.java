@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import evaluation.entity.Result;
 import evaluation.entity.ResultMsg;
 import evaluation.entity.Student;
 import evaluation.entity.Teacher;
@@ -106,6 +107,17 @@ public class TeacherController {
 			}
 			return new ResultMsg(0,"修改失败");
 		}
+	
+	 @RequestMapping("/resetpwd")
+	 @ResponseBody
+	 public Result resetpwd(int teacherid) {
+		   int i=teacherService.resetpwd(teacherid);
+		   if(i>0) {
+			   return new Result(1, "重置成功");
+		   }else {
+			   return new Result(0, "重置失败");
+		   }
+	 }
 	
 	@RequestMapping("/teacherlist")
 	public ModelAndView studentlist() {

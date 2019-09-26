@@ -65,6 +65,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		power=#{power},majorid=#{majorid} where teacherid=#{teacherid}
 	  </update>
      
+    <update id="resetpwd" parameterType="int">
+		update teacher set password='123456' where teacherid=#{teacherid}
+	  </update> 
       
 
 </mapper>

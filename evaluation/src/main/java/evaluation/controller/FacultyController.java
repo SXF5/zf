@@ -20,7 +20,7 @@ public class FacultyController {
 	
 	
 	 @RequestMapping("/facultylist")
-	 public ModelAndView matchlist() {
+	 public ModelAndView facultylist() {
 		   List<Faculty> faculties=facultyService.getFaculty();
 		   ModelAndView mv=new ModelAndView("faculty/facultylist");
 		   mv.addObject("faculties", faculties);
@@ -64,8 +64,7 @@ public class FacultyController {
 	 @ResponseBody
 	 public Result delchecked(String aa) {
 		 String[] ids1=aa.split(",");
-		   int i=facultyService.delchecked(ids1);
-		   System.out.println(i);
+		   int i=facultyService.delchecked(ids1);		  
 		   if(i>0) {
 			   return new Result(1, "删除成功");
 		   }else {

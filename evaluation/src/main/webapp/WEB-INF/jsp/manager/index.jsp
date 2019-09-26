@@ -111,7 +111,7 @@
                                     <cite>课程列表</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('授课页面','welcome1.html')">
+                                <a onclick="xadmin.add_tab('授课页面','${pageContext.request.contextPath}/teaching/teachinglist')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>授课列表</cite></a>
                             </li>   

@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import evaluation.dao.TeacherDao;
-import evaluation.entity.Student;
 import evaluation.entity.Teacher;
 
 import evaluation.util.Page;
@@ -39,6 +37,11 @@ public class TeacherService {
 	
 	public int updateTeacher(Teacher teacher) {
 		return teacherDao.updateTeacher(teacher);
+	}
+	
+
+	public int resetpwd(int teacherid) {
+		return teacherDao.resetpwd(teacherid);
 	}
 	
 	public Teacher getTeacherByid(int teacherid) {

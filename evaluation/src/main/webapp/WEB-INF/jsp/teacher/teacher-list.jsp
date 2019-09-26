@@ -68,10 +68,10 @@
                                     <th>性别</th>
                                     <th>密码</th>
                                     <th>电话</th>
-                                    <th>生日</th>
+                                    <th>年龄</th>
                                     <th>专业</th>
                                     <th>权限</th>
-                                    <th>备注</th>
+                                   <!--  <th>备注</th> -->
                                     <th>操作</th></tr>
                                 </thead>
                                 <tbody id="test1">
@@ -89,12 +89,12 @@
                                     <td>${teacher.birthday}</td>
                                     <td>${teacher.maj.majorname}</td>
                                     <td>${teacher.power}</td>
-                                    <td>${teacher.remarks}</td>                                   
+                                   <%--  <td>${teacher.remarks}</td>         --%>                           
                                     <td class="td-manage">                                     
                                       <button class="layui-btn layui-btn layui-btn-xs"  onclick="xadmin.open('编辑','update?teacherid=${teacher.teacherid}',600,400)" href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>编辑
                                       </button>
-                                      <button class="layui-btn-warm layui-btn layui-btn-xs"  onclick="xadmin.open('修改密码','member-password.html',600,400)" title="重置密码" href="javascript:;">
+                                      <button class="layui-btn-warm layui-btn layui-btn-xs"  onclick="resetpwd('${teacher.teacherid}')" title="重置密码" href="javascript:;">
                                         <i class="layui-icon">&#xe631;</i>重置密码
                                       </button>
                                       <button class="layui-btn-danger layui-btn layui-btn-xs" onclick="del('${teacher.teachernumber}')" href="javascript:;">
@@ -193,6 +193,20 @@
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
         });
-      }            
+      } 
+      
+      function resetpwd(teacherid){
+    	  var result=confirm("是否重置?");
+    	  if(result){
+    		  var url="${pageContext.request.contextPath}/teacher/resetpwd";
+    		  var param={teacherid:teacherid};
+    		  $.post(url,param,function(data){
+    			  alert(data.content);
+    			  if(data.flag==1){
+    				  location.reload();
+    			  }
+    		  });  
+    	  }
+    	}
     </script>
 </html>

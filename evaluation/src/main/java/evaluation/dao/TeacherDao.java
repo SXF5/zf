@@ -24,8 +24,8 @@ public interface TeacherDao {
 	
 	int updateTeacher(Teacher teacher);
 	
-
-	
+    
+	int resetpwd(int teacherid);
 	
 	Teacher getTeacher(Teacher teacher);
 
