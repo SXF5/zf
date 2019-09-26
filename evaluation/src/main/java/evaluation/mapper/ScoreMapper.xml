@@ -3,14 +3,77 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="evaluation.dao.ScoreDao">
-      <select id="getScoreById" parameterType="int" resultType="evaluation.entity.Score">
-      select * from score where scoreid=#{scoreid};
-      </select>
+            <!-- 查询所有得分  关联授课 教师 学生-->
+    <resultMap type="evaluation.entity.Score" id="score">
+    <id property="scoreid" column="scoreid"></id>
+    <result property="teacherid" column="teacherid"></result>
+    <result property="studentid" column="studentid"></result>
+    <result property="question0" column="question0"></result>
+    <result property="question1" column="question1"></result>
+    <result property="question2" column="question2"></result>
+    <result property="question3" column="question3"></result>
+    <result property="question4" column="question4"></result>
+    <result property="question5" column="question5"></result>
+    <result property="question6" column="question6"></result>
+    <result property="question7" column="question7"></result>
+    <result property="question8" column="question8"></result>
+    <result property="question9" column="question9"></result>
+    <result property="teachingid" column="teachingid"></result>    
+    <association property="teacher_V" javaType="evaluation.entity.Teacher_V">
+    <id property="teachingid" column="teachingid"></id>
+    <result property="teacherid" column="teacherid"></result>
+    <result property="teachername" column="tname"></result>
+    </association>
+    <association property="teacher" javaType="evaluation.entity.Teacher">
+    <id property="teacherid" column="teacherid"></id>
+    <result property="name" column="name"></result>
+    </association>   
+    <association property="student" javaType="evaluation.entity.Student">
+    <id property="studentid" column="studentid"></id>
+    <result property="name" column="sname"></result>
+    </association>
+    </resultMap>  
+    
+    <select id="getScore" resultMap="score">
+ select scoreid,teacher.`name`,student.`name` as sname,question0,question1,question2,question3,question4,question5,question6,question7,question8,question9,teacher_v.teacherid,teacher_v.teachername as tname from score left join student on student.studentid=score.studentid left join teacher on teacher.teacherid=score.teacherid
+ left join teacher_v on teacher_v.teachingid=score.teachingid;
+
+    </select>  
+
+     <!-- 查询授课  关联教师
+    <resultMap type="evaluation.entity.Teaching" id="teachingteacher">
+    <id property="teachingid" column="teachingid"></id>
+    <result property="courseid" column="courseid"></result>
+    <result property="classid" column="classid"></result>
+    <result property="teacherid" column="teacherid"></result>
+    <association property="teacher" javaType="evaluation.entity.Teacher">
+    <id property="teacherid" column="teacherid"></id>
+    <result property="name" column="name"></result>
+    </association>
+    </resultMap>  
+      
+       <select id="getTeacher" resultMap="teachingteacher">
+       select * from teaching,teacher where teaching.teacherid=teacher.teacherid; 
+      </select>  
+ -->
+      <!-- 删除 -->
       <delete id="deleteScore" parameterType="int">
       delete from score where scoreid=#{scoreid};
       </delete>
-      <insert id="insertScore" parameterType="evaluation.entity.Score">
-      insert into score(scoreid,studentid,teacherid,teachingid,question0,question1,question2,question3,question4,question5,question6,question7,question8,question9)
-      values(#{scoreid},#{studentid},#{teacherid},#{teachingid},#{question0},#{question1},#{question2},#{question3},#{question4},#{question5},#{question6},#{question7},#{question8},#{question9});
-      </insert>      
+       
+       <!-- 根据多个id删除多个专业-->
+     	<delete id="delAllScore" parameterType="java.lang.String">
+     		delete from score where scoreid in 
+     		<foreach collection="array" item="ids" open="(" separator="," close=")">
+	            #{ids}
+	        </foreach>  		
+     	</delete>
+      
+      <!-- 模糊查询 -->
+     	<select id="mhselect" parameterType="int" resultType="evaluation.entity.Score">
+     		select scoreid,teacher.`name`,student.`name` as sname,question0,question1,question2,question3,question4,question5,question6,question7,question8,question9,teaching.teacherid,teaching.teachername as tname from score left join student on student.studentid=score.studentid left join teacher on teacher.teacherid=score.teacherid
+            left join teaching on teaching.teachingid=score.teachingid WHERE score.teachingid like '%${teachingid}%'
+     	
+     	</select>
+         
 </mapper>

@@ -6,6 +6,12 @@ import java.util.Date;
 
 public class Student {
 	private int studentid;
+	public int getStudentid() {
+		return studentid;
+	}
+	public void setStudentid(int studentid) {
+		this.studentid = studentid;
+	}
 	private String studentnumber;
 	private String password;
 	private String name;
@@ -23,12 +29,8 @@ public class Student {
 	public void setCla(Classtb cla) {
 		this.cla = cla;
 	}
-	public int getStudentid() {
-		return studentid;
-	}
-	public void setStudentid(int studentid) {
-		this.studentid = studentid;
-	}
+	
+	
 	public String getStudentnumber() {
 		return studentnumber;
 	}

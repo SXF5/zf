@@ -2,8 +2,6 @@ package evaluation.entity;
 
 public class Score {
 	private int scoreid;
-	private int studentid;
-	private int teacherid;
 	private int teachingid;
 	private int question0;
 	private int question1;
@@ -15,11 +13,12 @@ public class Score {
 	private int question7;
 	private int question8;
 	private int question9;
-	public int getScoreid() {
-		return scoreid;
+	private int teacherid;
+	public int getTeacherid() {
+		return teacherid;
 	}
-	public void setScoreid(int scoreid) {
-		this.scoreid = scoreid;
+	public void setTeacherid(int teacherid) {
+		this.teacherid = teacherid;
 	}
 	public int getStudentid() {
 		return studentid;
@@ -27,15 +26,22 @@ public class Score {
 	public void setStudentid(int studentid) {
 		this.studentid = studentid;
 	}
+
+	private int studentid;
+	
+
+	
+	public int getScoreid() {
+		return scoreid;
+	}
+	public void setScoreid(int scoreid) {
+		this.scoreid = scoreid;
+	}
+	
 	public int getTeachingid() {
 		return teachingid;
 	}
-	public void setTeacherid(int teacherid) {
-		this.teacherid = teacherid;
-	}
-	public int getTeacherid() {
-		return teacherid;
-	}
+	
 	public void setTeachingid(int teachingid) {
 		this.teachingid = teachingid;
 	}
@@ -100,6 +106,35 @@ public class Score {
 		this.question9 = question9;
 	}
 	
+	private Teaching teaching;
+	public Teaching getTeaching() {
+		return teaching;
+	}
+	public void setTeaching(Teaching teaching) {
+		this.teaching = teaching;
+	}
+	public Teacher getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+	public Student getStudent() {
+		return student;
+	}
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	private Teacher teacher;
+	private Student student;
+	private Teacher_V teacher_V;
+	public Teacher_V getTeacher_V() {
+		return teacher_V;
+	}
+	public void setTeacher_V(Teacher_V teacher_V) {
+		this.teacher_V = teacher_V;
+	}
 	
 
 }

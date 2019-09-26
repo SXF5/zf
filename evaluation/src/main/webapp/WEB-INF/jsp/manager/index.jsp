@@ -124,7 +124,7 @@
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('得分表','welcome1.html')">
+                               <a onclick="xadmin.add_tab('得分列表','${pageContext.request.contextPath}/score/scorelist')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>得分表</cite></a>
                             </li>   

@@ -5,7 +5,14 @@ public class Teaching {
 	private int courseid;
 	private int classid;
 	private int teacherid;
+	private String teachername;
 	
+	public String getTeachername() {
+		return teachername;
+	}
+	public void setTeachername(String teachername) {
+		this.teachername = teachername;
+	}
 	public int getTeachingid() {
 		return teachingid;
 	}
@@ -30,5 +37,12 @@ public class Teaching {
 	public void setTeacherid(int teacherid) {
 		this.teacherid = teacherid;
 	}
+   private Teacher teacher;
 
+public Teacher getTeacher() {
+	return teacher;
+}
+public void setTeacher(Teacher teacher) {
+	this.teacher = teacher;
+}
 }

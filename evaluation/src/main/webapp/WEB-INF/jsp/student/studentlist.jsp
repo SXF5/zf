@@ -94,7 +94,6 @@
 										<td><input type="checkbox" name="" lay-skin="primary" >
 										</td>
 										
-										
 										<td>${item.studentnumber}</td>
 										<td>${item.name}</td>
 										<td>${item.sex}</td>
