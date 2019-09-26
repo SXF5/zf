@@ -98,7 +98,7 @@
                     });                  
 
         });
-        
+        /*新增*/
         function add(){           
                 	var url = "${pageContext.request.contextPath}/teacher/add-submit";
 					var param = $(".layui-form").serialize();

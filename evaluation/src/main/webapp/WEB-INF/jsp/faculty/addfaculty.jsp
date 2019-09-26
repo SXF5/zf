@@ -79,6 +79,7 @@
                     return false;            
 
             });
+ /*新增提交*/
 			 function add(){
 					var url="${pageContext.request.contextPath}/faculty/add_submit";
 					var param=$(".layui-form").serialize();

@@ -3,6 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="evaluation.dao.MajorDao">
+            <!-- 查询所有专业  关联院系-->
     <resultMap type="evaluation.entity.Major" id="major">
     <id property="majorid" column="majorid"></id>
     <result property="majornumber" column="majornumber"></result>
@@ -19,20 +20,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       select * from major,faculty where major.facultyid=faculty.facultyid; 
       </select>     
       
+      <!-- 删除专业 -->
       <delete id="deleteMajor" parameterType="int">
       delete from major where majorid=#{majorid};
       </delete> 
       
+      <!-- 新增专业 -->
       <insert id="addMajor" parameterType="evaluation.entity.Major">
       insert into major(majorid,majornumber,majorname,facultyid) values(#{majorid},#{majornumber},#{majorname},#{facultyid});
       </insert>
       
+      <!-- 修改专业 -->
       <update id="updateMajor" parameterType="evaluation.entity.Major">
       update major set majornumber=#{majornumber},majorname=#{majorname},facultyid=#{facultyid} where majorid=#{majorid};
       </update>
       
+      <!-- 根据id查询专业 -->
       <select id="getMajorById" parameterType="int" resultType="evaluation.entity.Major">
       select * from major where majorid=#{majorid};
       </select>
-
+      
+       <!-- 根据多个id删除多个专业-->
+     	<delete id="delAllMajor" parameterType="java.lang.String">
+     		delete from major where majorid in 
+     		<foreach collection="array" item="ids" open="(" separator="," close=")">
+	            #{ids}
+	        </foreach>  		
+     	</delete>
+      
+      <!-- 模糊查询 -->
+     	<select id="mhselect" parameterType="String" resultType="evaluation.entity.Major">
+     		select * from major where majorname like '%${majorname}%'
+     	
+     	</select>
 </mapper>

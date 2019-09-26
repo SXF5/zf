@@ -4,6 +4,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="evaluation.dao.TeacherDao">
 
+
+<!-- 根据账号密码查询所有教师 -->
+
  <resultMap id="teachertm" type="evaluation.entity.Teacher">
       
 		<id property="teacherid" column="teacherid" />
@@ -30,40 +33,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       	select * from teacher,major where	teacher.majorid=major.majorid;
       </select>
 
+		<!-- 教师编号密码查询 -->
       <select id="getTeacher" parameterType="evaluation.entity.Teacher" resultType="evaluation.entity.Teacher">
 		select * from teacher where teachernumber=#{teachernumber} and password=#{password}
+      </select>     
+      <!-- 所有教师查询 -->
+      <select id="getTeachers" resultType="evaluation.entity.Teacher">
+		select * from teacher 
       </select>   
 
-	  <select id="getTeachers" parameterType="evaluation.util.Page" resultType="evaluation.entity.Teacher">
-		select * from teacher order by teacherid asc limit #{pageIndex},#{pageSize}
-      </select>
+
       
+<!-- 根据id查询教师 -->
       <select id="getTeacherByid" parameterType="int" resultType="evaluation.entity.Teacher">
-		select * from teacher where teacherid = #{teacherid}
+       select * from teacher where teacherid=#{teacherid};
      </select>
+
       
+<!-- 查询一组信息 -->     
       <select id="getCount" resultType="int">
 		select count(1) from teacher 
 	  </select>
-	  
+
+<!-- 根据账号查询一组信息 -->	  
       <select id="getTeacherByNum" parameterType="String" resultType="int">
 		select count(1) from teacher where teachernumber=#{teachernumber}
 	  </select>
-      
+
+<!-- 新增教师 -->      
       <insert id="addTeacher" parameterType="evaluation.entity.Teacher">
       	insert into teacher(name,teachernumber,sex,password,power,majorid) 
       	values (#{name},#{teachernumber},#{sex},#{password},#{power},#{majorid});
       </insert>      
-      
+
+<!-- 删除教师 -->      
       <delete id="delTeacher" parameterType="String">
 		delete from teacher where teachernumber=#{teachernumber}
 	  </delete>
-	  
+
+<!-- 修改教师 -->	  
       <update id="updateTeacher" parameterType="evaluation.entity.Teacher">
 		update teacher
 		set name=#{name},teachernumber=#{teachernumber},sex=#{sex},password=#{password},
 		power=#{power},majorid=#{majorid} where teacherid=#{teacherid}
 	  </update>
+
 	  
      <select id="getteacherpower"  resultType="evaluation.entity.Teacher">
      select * from teacher 
@@ -72,5 +86,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        update teacher set power=#{power} where teacherid=#{teacherid}
     
      </update>
+
+
+     
+
+<!-- 根据多个id删除多个教师 -->
+     	<delete id="delAllTeacher" parameterType="java.lang.String">
+     		delete from teacher where teacherid in 
+     		<foreach collection="array" item="ids" open="(" separator="," close=")">
+	            #{ids}
+	        </foreach>  		
+     	</delete>
+
+ <!-- 模糊查询 -->
+     	<select id="mhselect" parameterType="String" resultType="evaluation.entity.Teacher">
+     		select * from teacher where name like '%${name}%'
+     	</select>      
+
+
 
 </mapper>

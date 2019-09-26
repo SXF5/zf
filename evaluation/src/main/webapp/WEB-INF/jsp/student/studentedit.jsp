@@ -18,14 +18,71 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/lib/jquery-3.4.0.min.js"></script>
 
-<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-<!--[if lt IE 9]>
-            <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-            <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+
 </head>
 
-<body>
+    <script type="text/javascript">
+
+    /*修改*/
+    function update(){
+
+   
+    
+    </script>
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row" >
+                <form class="layui-form" id="updatestu">
+                <input type="hidden" id="studentid" name="studentid" value="${stu.studentid }">
+                    <div class="layui-form-item">
+                        <label for="L_email" class="layui-form-label">
+                            <span class="x-red">*</span>学号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id=""studentnumber"" name="studentnumber" required="" lay-verify="stunumber" autocomplete="off" class="layui-input" value="${stu.studentnumber }"></div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>学生唯一标识</div></div>
+                    <div class="layui-form-item">
+                        <label for="L_username" class="layui-form-label">
+                            <span class="x-red">*</span>姓名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="name" name="name" required="" lay-verify="nikename" autocomplete="off" class="layui-input" value="${stu.name }"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="L_pass" class="layui-form-label">
+                            <span class="x-red">*</span>班级</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="classid" name="classid" required="" lay-verify="class" autocomplete="off" class="layui-input" value="${stu.cla.classname }"></div>
+                        
+                    
+                    <div class="layui-form-item">
+                        <label for="L_repass" class="layui-form-label"></label>
+                        <button class="layui-btn" lay-filter="update" lay-submit="" >修改</button></div>
+                </form>
+            </div>
+        </div>
+        <script>layui.use(['form', 'layer'],
+            function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                layer = layui.layer;
+                
+                //监听提交
+                form.on('submit(update)',
+                function(data) {
+                	 $.ajax({                	  
+                     	type:"post",
+                     	url:"${pageContext.request.contextPath}/student/updatestucontroll",
+                     	data:data.field,
+                     	success:function(data){
+                     		if(data.flag == 1){
+                     			layer.alert("修改成功", {
+                                     icon: 1
+                                 }, function() {
+                                     //关闭当前frame
+                                     xadmin.close();
+
+
+
 	<div class="layui-fluid">
 		<div class="layui-row">
 			<form class="layui-form" id="updatestu">
@@ -148,5 +205,16 @@
 
 </script>
 </body>
+
+           
+        <script>var _hmt = _hmt || []; (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })()
+        </script>
+    
+
 
 </html>

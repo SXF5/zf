@@ -99,7 +99,7 @@
                     });                  
 
         });
-        
+        /*修改*/
         function update(){           
                 	var url = "${pageContext.request.contextPath}/teacher/update-submit";
 					var param = $(".layui-form").serialize();
