@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html class="x-admin-sm">
     <head>
@@ -85,9 +86,11 @@
 										<td>${item.sex}</td>
 										<td>${item.tel}</td>
                                         <td>${item.cla.classname}</td>
-                                        <td id="bir${item.studentid}" name="bird" style="display:none">${item.birthday}</td>
-                                        <td  id="birthday${item.studentid}"></td>
-										<td id="b${item.studentid}" name="nl">
+                                        
+                                        <td id="bir${item.studentid}" name="bird" >
+                                        <fmt:formatDate value="${item.birthday }" pattern="yyyy-MM-dd" />
+                                        </td>
+                                     	<td id="b${item.studentid}" name="nl"> 
 										
 								     	</td>
 
@@ -167,11 +170,12 @@
 	           
 	        });
 	         var aa=ids.toString();
+	         
 	         var aa1 = new Array();
 	        	 aa1=aa.split(",");
 	        	 for(i=0;i<aa1.length;i++){
-	        		 var s_time = dateFormat(aa1[i],'yyyy-MM-dd');
-	        		 var csrq =s_time;	        	  	 
+	        		   var s_time = dateFormat(aa1[i],'yyyy-MM-dd'); 	        		  
+	        		    var csrq =s_time;	        	  	 
 	        	        var age = '';
 	        	        var d = new Date();
 	        	        var year = d.getFullYear();
@@ -190,8 +194,7 @@
 	        	        }else{
 	        	            age = year - parseInt(csrq.substring(0,4)) - 1;
 	        	        }
-	        	        var s=i+1;
-	        	       $("#birthday"+s).html(s_time);
+	        	        var s=i+1;	        	      
 	        	         $("#b"+s).html(age); 
 	        		
 	        	 }
@@ -272,8 +275,7 @@
                       });
           		}else{alert("删除失败")}
           	}            	  
-            })
-            
+            })            
         });
       }	
       //调用年龄函数
