@@ -1,18 +1,21 @@
 package evaluation.controller;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import evaluation.entity.ResultMsg;
-
 import evaluation.entity.Teacher;
 import evaluation.service.TeacherService;
+import evaluation.util.Excelutil;
 
 @Controller
 @RequestMapping("/teacher")
@@ -142,6 +145,42 @@ public class TeacherController {
 			ModelAndView mv = new ModelAndView("teacher/teacher-list");
 			mv.addObject("teachers",list);
 			return mv;
-		}	
+		}
+		
+		//Excel
+		@RequestMapping("teacherimport")
+		public String test() {
+			return "/teacher/teacher-import";
+		}
+		
+		//Excelutil 
+		@RequestMapping("Excelteacher")
+		public String excelin(MultipartFile file,ModelMap map) throws Exception {
+			InputStream in = file.getInputStream();
+	        Teacher teacher =null;
+	        List<List<Object>> listob = null;
+	        listob=new Excelutil().getBankListByExcel(in, file.getOriginalFilename());
+	        in.close();
+	        int result = 0;
+	        for(int i=0;i<listob.size();i++) {
+	        	teacher = new Teacher();
+	        	List<Object> li = listob.get(i);
+	        	teacher.setName(String.valueOf(li.get(0)));
+	        	teacher.setTeachernumber(String.valueOf(li.get(1)));
+	        	teacher.setSex(String.valueOf(li.get(2)));
+	        	teacher.setPassword(String.valueOf(li.get(3)));
+	        	teacher.setPower(Integer.valueOf((String) li.get(4)));
+	        	teacher.setMajorid(Integer.valueOf((String) li.get(5)));
+	        	result = teacherService.addTeacher(teacher);
+	        }
+	        //System.out.println(result);
+	        if (result>0) {
+	         	map.put("reslut1", 1);
+	 		}else {
+	 			map.put("reslut1", 2);
+	 		}
+	       return "teacher/teacher-import";
+		}
+		
 }
 

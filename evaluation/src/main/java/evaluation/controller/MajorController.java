@@ -1,19 +1,24 @@
 package evaluation.controller;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import evaluation.entity.Course;
 import evaluation.entity.Faculty;
 import evaluation.entity.Major;
 import evaluation.entity.ResultMsg;
+import evaluation.entity.Teacher;
 import evaluation.service.FacultyService;
 import evaluation.service.MajorService;
+import evaluation.util.Excelutil;
 
 @Controller
 @RequestMapping("/major")
@@ -124,4 +129,36 @@ public class MajorController {
 			mv.addObject("majors",list);
 			return mv;
 		}
+		
+		//Excel
+				@RequestMapping("majorimport")
+				public String test() {
+					return "/major/major-import";
+				}
+				
+				//Excelutil 
+				@RequestMapping("Excelmajor")
+				public String excelin(MultipartFile file,ModelMap map) throws Exception {
+					InputStream in = file.getInputStream();
+			        Major major =null;
+			        List<List<Object>> listob = null;
+			        listob=new Excelutil().getBankListByExcel(in, file.getOriginalFilename());
+			        in.close();
+			        int result = 0;
+			        for(int i=0;i<listob.size();i++) {
+			        	major = new Major();
+			        	List<Object> li = listob.get(i);
+			        	major.setMajornumber(String.valueOf(li.get(0)));
+			        	major.setMajorname(String.valueOf(li.get(1)));
+			        	major.setFacultyid(Integer.valueOf((String) li.get(2)));
+			        	result = majorService.addMajor(major);
+			        }
+			        //System.out.println(result);
+			        if (result>0) {
+			         	map.put("reslut1", 1);
+			 		}else {
+			 			map.put("reslut1", 2);
+			 		}
+			       return "major/major-import";
+				}
 }

@@ -73,10 +73,11 @@
                                 		<td>${li.coursenumber }</td>
                                 		<td>${li.major.majorname }</td>
 										<td class="td-manage">
-										<button class="layui-btn layui-btn layui-btn-sm " 
+										<button class="layui-btn layui-btn layui-btn-sm" 
 										onclick="xadmin.open('编辑','${pageContext.request.contextPath}/course/course-update?courseid=${li.courseid }',600,400)"
 											href="javascript:;"> <i class="layui-icon">&#xe642;</i>修改
-										</button>
+										</button> 
+									
 										<button class="layui-btn-danger layui-btn layui-btn-sm "
 												onclick="course_del(this,'${li.courseid }')" href="javascript:;">
 												<i class="layui-icon">&#xe640;</i>删除
@@ -205,7 +206,7 @@
               	  data:{"ids":ids},
               	  success:function(data){
             		if(data.flag == 1){
-            			layer.alert("查询成功", {
+            			layer.alert("删除成功", {
                             icon: 1
                         },function(){
                         	xadmin.father_reload();
