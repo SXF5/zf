@@ -1,14 +1,11 @@
 package evaluation.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import evaluation.dao.TeacherDao;
 import evaluation.entity.Course;
 import evaluation.entity.Teacher;
-
 
 @Service
 public class TeacherService {
@@ -49,7 +46,15 @@ public class TeacherService {
 		return teacherDao.updateTeacher(teacher);
 	}
 	
+
+
+	public int resetpwd(int teacherid) {
+		return teacherDao.resetpwd(teacherid);
+	}
+	
+
 	//根据id查询
+
 	public Teacher getTeacherByid(int teacherid) {
 		return teacherDao.getTeacherByid(teacherid);
 	}	
@@ -67,6 +72,17 @@ public class TeacherService {
 		return false;
 		}
 	
+
+	public List<Teacher> getteacherpower(){
+	return	teacherDao.getteacherpower();
+		
+	}
+	public int updatepower(Teacher teacher) {
+		return teacherDao.updatepower(teacher);
+	}
+		
+
+
 	//批量删除	
 	public int delAllTeacher(String[] ids) {
 		return teacherDao.delAllTeacher(ids);
@@ -78,6 +94,7 @@ public class TeacherService {
 			return list;
 			
 		}
+
 
 }
 

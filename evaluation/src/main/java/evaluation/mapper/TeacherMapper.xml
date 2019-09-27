@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</resultMap>
 
- <select id="getTeachersmajor" resultMap="teachertm">
+      <select id="getTeachersmajor" resultMap="teachertm">
       	select * from teacher,major where	teacher.majorid=major.majorid;
       </select>
 
@@ -77,7 +77,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set name=#{name},teachernumber=#{teachernumber},sex=#{sex},password=#{password},
 		power=#{power},majorid=#{majorid} where teacherid=#{teacherid}
 	  </update>
+
+	  
+     <select id="getteacherpower"  resultType="evaluation.entity.Teacher">
+     select * from teacher 
+     </select>
+      <update id="updatepower"  >
+       update teacher set power=#{power} where teacherid=#{teacherid}
+    
+     </update>
+
+
      
+
+    <update id="resetpwd" parameterType="int">
+		update teacher set password='123456' where teacherid=#{teacherid}
+	  </update> 
+      
+
 
 <!-- 根据多个id删除多个教师 -->
      	<delete id="delAllTeacher" parameterType="java.lang.String">
@@ -91,6 +108,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      	<select id="mhselect" parameterType="String" resultType="evaluation.entity.Teacher">
      		select * from teacher where name like '%${name}%'
      	</select>      
+
+
 
 
 </mapper>

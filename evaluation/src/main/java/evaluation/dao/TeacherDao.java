@@ -6,9 +6,12 @@ import evaluation.entity.Teacher;
 import org.apache.ibatis.annotations.Param;
 
 public interface TeacherDao {
-	List<Teacher> getTeachers();
 
-	List<Teacher> getTeachersmajor();	
+	List<Teacher> getTeachersmajor();
+	
+	int resetpwd(int teacherid);
+
+	List<Teacher> getTeachers();
 	//根据id查询
 	Teacher getTeacherByid(int teacherid);
 	//查询一组
@@ -22,9 +25,12 @@ public interface TeacherDao {
 	//修改
 	int updateTeacher(Teacher teacher);
 
+    List<Teacher> getteacherpower();
+    
+	int updatepower(Teacher teacher);
 	//查询所有
 	Teacher getTeacher(Teacher teacher);
-   
+
 	//批量删除
 	int delAllTeacher(String[] ids);
 

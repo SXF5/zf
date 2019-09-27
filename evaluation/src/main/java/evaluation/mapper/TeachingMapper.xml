@@ -3,6 +3,82 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="evaluation.dao.TeachingDao">
-      
+
+
+<resultMap id="teachingtm" type="evaluation.entity.Teaching">    
+		<id property="teachingid" column="teachingid" />
+		<result property="courseid" column="courseid" />
+		<result property="classid" column="classid" />
+		<result property="teacherid" column="teacherid" />
+		<association property="tv" javaType="evaluation.entity.Teach_v">
+			<id property="teacherid" column="teacherid" />
+			<result property="majorname" column="majorname" />
+			<result property="name" column="name" />
+		</association>
+		<association property="cla" javaType="evaluation.entity.Classtb">
+			<id property="classid" column="classid" />
+			<result property="classname" column="classname" />
+			<result property="classnumber" column="classnumber" />
+		</association>
+		<association property="cou" javaType="evaluation.entity.Course">
+			<id property="courseid" column="courseid" />
+			<result property="coursename" column="coursename" />
+			<result property="coursenumber" column="coursenumber" />
+			<result property="majorid" column="majorid" />
+		</association>
+	</resultMap>
+
+      <select id="getFacultyname" resultType="evaluation.entity.Faculty">
+      select * from faculty
+      </select>
+          
+      <select id="getMajorname" resultType="evaluation.entity.Major">
+      select * from major where facultyid=#{parentid}
+      </select>
+            
+      <select id="getCoursename" resultType="evaluation.entity.Course">
+      select * from course where majorid=#{parentid}
+      </select>
+         
+      <select id="getTeachername" resultType="evaluation.entity.Teacher">
+      select * from teacher where majorid=#{parentid}
+      </select> 
+       
+       <select id="getClassname" resultType="evaluation.entity.Classtb">
+       select * from classtb
+       </select>
+       
+        
+        <insert id="insertTeaching" parameterType="evaluation.entity.Teaching">
+        insert into teaching (courseid,classid,teacherid) values(#{courseid},#{classid},#{teacherid})
+        </insert>
+        
+         <select id="getTeaching" resultType="evaluation.entity.Teaching">
+        select * from teaching
+        </select> 
+        
+        
+        <delete id="delTeaching" parameterType="int">
+         delete from teaching where teachingid=#{teachingid}
+		</delete>
+          
+          <select id="getCourse" resultMap="teachingtm">
+        select course.coursename,classtb.classname,teach_v.name,teach_v.majorname,teaching.teachingid
+ 		from teaching left JOIN course ON course.courseid=teaching.courseid
+ 		LEFT JOIN classtb on classtb.classid=teaching.classid
+		left JOIN teach_v on teach_v.teacherid=teaching.teacherid;
+          </select>
+          
+          <select id="isTeaching" parameterType="int" resultType="int">
+ 			select count(1) from teaching where teachingid=#{teachingid}
+			</select>
+          
+          <delete id="delcheck" parameterType="list">
+	delete from teaching where teachingid in 
+	<foreach collection="array" item="ids1" open="(" close=")" separator=",">
+	#{ids1}
+    </foreach>
+</delete>
+          
             
 </mapper>

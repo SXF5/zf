@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html class="x-admin-sm">
     <head>
@@ -51,7 +52,7 @@
                             <button class="layui-btn layui-btn-danger layui-btn-lg" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
                             <button class="layui-btn layui-btn-lg" onclick="xadmin.open('添加教师','add',600,400)"><i class="layui-icon"></i>添加</button>
                         </div>
-                        <div class="layui-card-body layui-table-body layui-table-main">
+                        <div class="layui-card-body layui-table-body layui-table-main">                            
                             <table class="layui-table" lay-filter="mylist" lay-size="lg">
 							<thead>
 								<tr>
@@ -63,8 +64,8 @@
 									<th lay-data="{field:'sex',align:'center', Width:60}">性别</th>
 									<th lay-data="{field:'password',align:'center', Width:60}">密码</th>
 									<th lay-data="{field:'tel',align:'center', Width:120}">电话</th>
-									<th lay-data="{field:'detail',align:'center', Width:120}" style="display:none !important">生日详情</th>
-									<th lay-data="{field:'birthday',align:'center', Width:60}">生日</th>
+									<th lay-data="{field:'detail',align:'center', Width:120}" >生日</th>
+								
 									<th lay-data="{field:'age',align:'center', Width:60}">年龄</th>
 					                <th lay-data="{field:'major',align:'center', Width:60}">专业</th>
 					                <th lay-data="{field:'power',align:'center', Width:60}">权限</th>
@@ -82,17 +83,22 @@
 					                <td>${teacher.sex}</td>
 					                <td>${teacher.password}</td>
 					                <td>${teacher.phone}</td>
-					                <td id="bir${teacher.teacherid}" name="bird" style="display:none !important">${teacher.birthday}</td>
-					                <td id="birthday${teacher.teacherid}"></td>
+					                <td id="bir${teacher.teacherid}" name="bird" >
+					                <fmt:formatDate value="${teacher.birthday }" pattern="yyyy-MM-dd" />
+					                
+					                </td>
+					                
 					                <td id="b${teacher.teacherid}" >	
 					                <td>${teacher.majorid}</td>
 					                <td>${teacher.power}</td>
 					                <%-- <td>${teacher.remarks}</td>  --%>
 									<td class="td-manage">                                     
                                       <button class="layui-btn layui-btn"  onclick="xadmin.open('编辑','update?teacherid=${teacher.teacherid}',600,400)" href="javascript:;">
+
                                         <i class="layui-icon">&#xe642;</i>编辑
                                       </button>
-                                      <button class="layui-btn-warm layui-btn"  onclick="xadmin.open('修改密码','member-password.html',600,400)" title="重置密码" href="javascript:;">
+
+                                      <button class="layui-btn-warm layui-btn layui-btn-xs"  onclick="resetpwd('${teacher.teacherid}')" title="重置密码" href="javascript:;">       
                                         <i class="layui-icon">&#xe631;</i>重置密码
                                       </button>
                                       <button class="layui-btn-danger layui-btn" onclick="del('${teacher.teachernumber}')" href="javascript:;">
@@ -202,7 +208,7 @@
 	        	            age = year - parseInt(csrq.substring(0,4)) - 1;
 	        	        }
 	        	        var s=i+1;
-	        	       $("#birthday"+s).html(s_time);
+	        	      
 	        	         $("#b"+s).html(age); 
 	        		
 	        	 }
@@ -278,8 +284,23 @@
             		}
             	}            	  
               })
-        });
-      }  
+        });           
+     } 
+      
+      function resetpwd(teacherid){
+    	  var result=confirm("是否重置?");
+    	  if(result){
+    		  var url="${pageContext.request.contextPath}/teacher/resetpwd";
+    		  var param={teacherid:teacherid};
+    		  $.post(url,param,function(data){
+    			  alert(data.content);
+    			  if(data.flag==1){
+    				  location.reload();
+    			  }
+    		  });  
+    	  }
+    	}
+        
       
     //模糊查询
       function selectm(){

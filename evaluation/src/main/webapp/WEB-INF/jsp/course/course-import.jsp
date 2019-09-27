@@ -17,6 +17,35 @@
        
 </head>
 <body>
+
+
+
+
+<script>
+layui.use('upload', function(){
+   var $ = layui.jquery
+  ,upload = layui.upload;
+   //选完文件后不自动上传
+   
+  upload.render({
+    elem: '#test8'
+    ,url: ''
+    ,accept:'file'
+    ,auto: false
+    ,multiple: true
+    ,bindAction: '#test9'
+    ,done: function(){
+      alert(444);
+    }
+  });
+  
+
+  
+  
+ 
+  
+});
+</script>
 <div class="layui-upload" style="width:600px;height:50px; margin-top: 50px; margin-left: 50px">
 	<form class="layui-form" method="POST" action="${pageContext.request.contextPath}/course/Excelin" enctype="multipart/form-data">
 		<input type="file" name="file" id="upfile" >
@@ -88,6 +117,7 @@
             }); 
               
     }); */
+
 
 </script>
 </html>

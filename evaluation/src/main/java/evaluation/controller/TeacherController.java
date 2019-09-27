@@ -9,13 +9,20 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.ModelAndView;
 
+import evaluation.entity.Result;
 import evaluation.entity.ResultMsg;
 import evaluation.entity.Teacher;
 import evaluation.service.TeacherService;
+
+
+
 import evaluation.util.Excelutil;
+
 
 @Controller
 @RequestMapping("/teacher")
@@ -25,17 +32,24 @@ public class TeacherController {
 	@Autowired
 	private TeacherService teacherService;
 	
-	//教师列表
+	//教师主页面
+		@RequestMapping("/index")
+		public ModelAndView Index() {
+			ModelAndView mv = new ModelAndView("teacher/index");
+			return mv;
+		}
+	
+	/*//教师列表
 	@RequestMapping("/teacher-list")
-	 public ModelAndView index() {
+	 public ModelAndView Teacher() {
 		List<Teacher> teachers=teacherService.getTeachers();
 		 ModelAndView mv=new ModelAndView("teacher/teacher-list");
 		 mv.addObject("teachers", teachers);
 		 return mv;
-	 }
+	 }*/
 		
 	@RequestMapping("/delete")
-	 public ModelAndView delete(String teachernumber) {
+	 public ModelAndView Delete(String teachernumber) {
 		 teacherService.delTeacher(teachernumber);
 		 ModelAndView mv=new ModelAndView("teacher/teacher-list");
 		 return mv;
@@ -43,13 +57,13 @@ public class TeacherController {
 
 	//新增页面
 	@RequestMapping("/add")
-	 public ModelAndView add() {
+	 public ModelAndView Add() {
 		 ModelAndView mv=new ModelAndView("teacher/add");
 		 return mv;
 	 }
 	//新增提交
 	@RequestMapping("/add-submit")
-	 public ResultMsg add_submit(Teacher teacher) {
+	 public ResultMsg Add_submit(Teacher teacher) {
 		//新增教师
 			int i=teacherService.addTeacher(teacher);
 			if(i>0){
@@ -62,7 +76,7 @@ public class TeacherController {
 
 	//修改页面
 	@RequestMapping("/update")
-	 public ModelAndView update(int teacherid) {
+	 public ModelAndView Update(int teacherid) {
 		 Teacher teacher=teacherService.getTeacherByid(teacherid);
 		 ModelAndView mv=new ModelAndView("teacher/update");
 		 mv.addObject("teacher", teacher);
@@ -71,7 +85,7 @@ public class TeacherController {
 	
 	//修改提交
 	@RequestMapping("/update-submit")
-	 public ResultMsg update_submit(Teacher teacher) {
+	 public ResultMsg Update_submit(Teacher teacher) {
 		//新增教师
 			int i=teacherService.updateTeacher(teacher);
 			if(i>0){
@@ -83,11 +97,25 @@ public class TeacherController {
 		}
 	
 
+	 @RequestMapping("/resetpwd")
+	 @ResponseBody
+	 public Result resetpwd(int teacherid) {
+		   int i=teacherService.resetpwd(teacherid);
+		   if(i>0) {
+			   return new Result(1, "重置成功");
+		   }else {
+			   return new Result(0, "重置失败");
+		   }
+	 }
+	
+
+
 
 
 	//登录页面   
+
 	@RequestMapping("/teacherlist")
-	public ModelAndView studentlist() {
+	public ModelAndView Teacherlist() {
 		List<Teacher> teachers =teacherService.getTeachersmajor();
 		ModelAndView mv = new ModelAndView("teacher/teacher-list");
 		mv.addObject("teachers", teachers);
@@ -95,7 +123,7 @@ public class TeacherController {
 	}
         
 	 @RequestMapping("/login")
-     public ModelAndView login() {
+     public ModelAndView Login() {
     	 ModelAndView mv=new ModelAndView("teacher/login");
     	 return mv;
 }
@@ -103,7 +131,7 @@ public class TeacherController {
 	 
 	 //登录判断
 	 @RequestMapping("/managerlogin")
-	 public ModelAndView  managerlogin(Model model,Teacher teacher){
+	 public ModelAndView  Managerlogin(Model model,Teacher teacher){
 		 model.addAttribute("teacher",teacher);
 		 ModelAndView mv=new ModelAndView("teacher/managerlogin");
 		 ModelAndView mv2=new ModelAndView("teacher/error");
@@ -120,7 +148,7 @@ public class TeacherController {
 	//批量删除
 		@RequestMapping("delallteacher")
 		@ResponseBody
-		public ResultMsg byincourse(String ids) {
+		public ResultMsg Byincourse(String ids) {
 			//System.out.println(ids);
 			String[] teacherids = ids.split(",");
 			int i = teacherService.delAllTeacher(teacherids);
@@ -133,7 +161,7 @@ public class TeacherController {
 	 
 		//模糊查询
 		@RequestMapping("mselect")
-		public ModelAndView mselect(String name) {
+		public ModelAndView Mselect(String name) {
 			List<Teacher> list = teacherService.mhselect(name);							
 			ModelAndView mv = new ModelAndView("teacher/teacher-list");
 			mv.addObject("teachers",list);

@@ -71,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       
       <!-- 模糊查询 -->
      	<select id="mhselect" parameterType="int" resultType="evaluation.entity.Score">
-     		select scoreid,teacher.`name`,student.`name` as sname,question0,question1,question2,question3,question4,question5,question6,question7,question8,question9,teaching.teacherid,teaching.teachername as tname from score left join student on student.studentid=score.studentid left join teacher on teacher.teacherid=score.teacherid
+     		select scoreid,teacher.`name`,student.`name` as sname,question0,question1,question2,question3,question4,question5,question6,question7,question8,question9,teaching.teacherid from score left join student on student.studentid=score.studentid left join teacher on teacher.teacherid=score.teacherid
             left join teaching on teaching.teachingid=score.teachingid WHERE score.teachingid like '%${teachingid}%'
      	
      	</select>

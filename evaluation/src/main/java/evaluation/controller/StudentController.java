@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import evaluation.entity.Classtb;
 
 import evaluation.entity.Student;
 import evaluation.entity.Teacher;
 import evaluation.service.ClasstbService;
 import evaluation.service.StudentService;
 import evaluation.util.Excelutil;
+import evaluation.entity.Classtb;
 import evaluation.entity.ResultMsg;
 
 @Controller
@@ -30,25 +30,34 @@ public class StudentController {
 	//注入service
 	@Autowired
 	private StudentService getStus;
+	@Autowired
 	private ClasstbService claser;
+
+
 
 	
 	//学生列表
+
 	@RequestMapping("/studentlist")
 	public ModelAndView studentlist() {
 		List<Student> students = getStus.getStus();
 		ModelAndView mv = new ModelAndView("student/studentlist");
 		mv.addObject("students", students);
-		
+
 		return mv;
 	}
 	
-//	//修改页面
-//	@RequestMapping("/studentedit")
-//	public ModelAndView studentedit(int studentid) {
+	//学生主页面
+	@RequestMapping("/index")
+	public ModelAndView index() {
+		ModelAndView mv = new ModelAndView("student/index");
+		return mv;
+	}
 
 //年龄计算
 	@RequestMapping("/getAge")
+
+
 
 	public ModelAndView getAge(String  birthday) throws ParseException{
 		  System.out.println("1");
@@ -59,29 +68,50 @@ public class StudentController {
 	     mv.addObject("age", age);
          return mv;	
 	}
-	
 
 	//修改提交
 	
+
 	private int getAgeByBirth(Date mydate) {
-	// TODO Auto-generated method stub
-	return 0;
-}
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	// 修改学生界面
 	@RequestMapping("/studentedit")
 	public ModelAndView studentedit(int studentid) {
 
 		Student stu = getStus.getStudentBystuid(studentid);
-
+		List<Classtb> clas = claser.getclass();
 		ModelAndView mv = new ModelAndView("student/studentedit");
 		mv.addObject("stu", stu);
+     	mv.addObject("clas",clas);
 		return mv;
 	}
 
+	// 修改学生
+	@RequestMapping("updatestucontroll")
+	@ResponseBody
+	public ResultMsg update(Student student) {
+		int i = getStus.updateStudent(student);
+		if (i > 0) {
+
+			return new ResultMsg(1, "更新学生成功");
+
+		}
+
+		return new ResultMsg(0, "更新学生失败");
+
+	}
+
+	// 增加学生界面
 	@RequestMapping("/studentadd")
 	public ModelAndView studentadd() {
 		ModelAndView mv = new ModelAndView("student/studentadd");
 		return mv;
 	}
+
+	// 增加学生
 	@RequestMapping("addstudent")
 	@ResponseBody
 	public ResultMsg addstudent(Student student) {
@@ -92,27 +122,12 @@ public class StudentController {
 		}
 		return new ResultMsg(0, "更新失败");
 	}
+
 	
-	@RequestMapping("updatestucontroll")
-	@ResponseBody
-	public ResultMsg update(Student student) {
 
-		int i = getStus.updateStudent(student);
-		if (i > 0) {
-
-			
-
-			return new ResultMsg(1, "更新学生成功");
-
-		}
-
-		
-
-		return new ResultMsg(0, "更新学生失败");
-
-	}
 	
 	//删除
+
 	@RequestMapping("studentdel")
 	@ResponseBody
 	public ResultMsg studentdel(int studentid) {
@@ -123,9 +138,15 @@ public class StudentController {
 			return new ResultMsg(1, "删除成功");
 		}
 		return new ResultMsg(0, "删除失败");
+
 	}
+
+	// 学生批量删除
+
+	
 	
 	//批量删除
+
 	@RequestMapping("studentall")
 	@ResponseBody
 	public ResultMsg studentall(String aa) {

@@ -2,8 +2,6 @@ package evaluation.entity;
 
 import java.util.Date;
 
-
-
 public class Student {
 	private int studentid;
 	public int getStudentid() {

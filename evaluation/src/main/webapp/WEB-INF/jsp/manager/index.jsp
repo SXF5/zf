@@ -111,7 +111,7 @@
                                     <cite>课程列表</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('授课页面','welcome1.html')">
+                                <a onclick="xadmin.add_tab('授课页面','${pageContext.request.contextPath}/teaching/teachinglist')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>授课列表</cite></a>
                             </li>   
@@ -137,7 +137,7 @@
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('权限列表','welcome1.html')">
+                                <a onclick="xadmin.add_tab('权限列表','${pageContext.request.contextPath}/manager/adminrole')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>权限列表</cite></a>
                             </li>   
@@ -160,8 +160,9 @@
                                     <cite>教师信息导入</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('课程信息导入' , '${pageContext.request.contextPath}/course/courseimport')">
-                                    <i class="iconfont">&#xe6a7;</i>
+
+                                <a onclick="xadmin.add_tab('课程信息导入','${pageContext.request.contextPath}/course/courseimport')">
+                                 <i class="iconfont">&#xe6a7;</i>
                                     <cite>课程信息导入</cite></a>
                             </li>
                             <li>

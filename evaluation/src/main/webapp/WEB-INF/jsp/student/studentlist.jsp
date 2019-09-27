@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html class="x-admin-sm">
     <head>
@@ -69,7 +70,7 @@
                                     <th lay-data="{field:'time',align:'center', Width:40}">性别</th>
                                     <th lay-data="{field:'tel',align:'center', Width:180}">电话号码</th>
                                     <th lay-data="{field:'class',align:'center', Width:60}">班级</th>
-                                   	<th lay-data="{field:'english',align:'center', Width:120}" style="display:none !important">生日详情</th>  
+                                  
                                     <th lay-data="{field:'birthday',align:'center', Width:120}">生日</th>
                                     <th lay-data="{field:'age',align:'center', Width:60}">年龄</th>
                                     <th lay-data="{field:'option',align:'center',width:180,fixed: 'right'}">操作 </th>
@@ -79,19 +80,17 @@
                                   	<c:forEach items="${students}" var="item">
 									<tr>
 										<td><input type="checkbox" name="" lay-skin="primary" >
-
-										</td>
-
-
-                                        <td>${item.studentnumber}</td>
+										</td>										
+										<td>${item.studentnumber}</td>
 										<td>${item.name}</td>
 										<td>${item.sex}</td>
 										<td>${item.tel}</td>
                                         <td>${item.cla.classname}</td>
-                                        <td id="bir${item.studentid}" name="bird" style="display:none !important">${item.birthday}</td>
-                                        <td id="birthday${item.studentid}"></td>
-										<td id="b${item.studentid}" >										
-								     	</td>
+                                        <td id="bir${item.studentid}" name="bird" >
+                                        <fmt:formatDate value="${item.birthday }" pattern="yyyy-MM-dd" />
+                                        </td>
+                                     	<td id="b${item.studentid}" name="nl"> </td>
+                                     	
 										<td class="td-manage">
                                                 <button class="layui-btn layui-btn "   
 												onclick="xadmin.open('编辑用户','${pageContext.request.contextPath}/student/studentedit?studentid=${item.studentid}',600,400 )"
@@ -113,6 +112,10 @@
             </div>
         </div> 
     </body>
+
+    
+  
+
     <script type="text/javascript">
     $(function(){
     	layui.use('table',function(){
@@ -145,6 +148,7 @@
 		}); */
     });
     //生日转换
+
     function dateFormat (date, format) {
 	    date = new Date(date);
 	    date.setHours(date.getHours()-14);
@@ -168,24 +172,22 @@
 	    return format;
 	}
 	
-      
-     function jsageall(){
-    
-        
-		   var ids = []; 
-	        // 获取选中的id 
+
+    //计算年龄函数
+    function jsageall(){
+ 		   var ids = []; 
+   	 // 获取选中的id 
 	        $("td[name='bird']").each(function(index, el) {	
 	        	var stunumber=$(this).html();
-	        	
-	               ids.push(stunumber)
-	           
+	               ids.push(stunumber)	           
 	        });
 	         var aa=ids.toString();
+	      
 	         var aa1 = new Array();
 	        	 aa1=aa.split(",");
 	        	 for(i=0;i<aa1.length;i++){
-	        		 var s_time = dateFormat(aa1[i],'yyyy-MM-dd');
-	        		 var csrq =s_time;	        	  	 
+	        		   var s_time = dateFormat(aa1[i],'yyyy-MM-dd'); 	        		  
+	        		    var csrq =s_time;	        	  	 
 	        	        var age = '';
 	        	        var d = new Date();
 	        	        var year = d.getFullYear();
@@ -204,9 +206,11 @@
 	        	        }else{
 	        	            age = year - parseInt(csrq.substring(0,4)) - 1;
 	        	        }
+
 	        	        var s=i+1;
 	        	       $("#birthday"+s).html(s_time);
 	        	        $("#b"+s).html(age); 
+
 	        		
 	        	 }
 	         
@@ -215,9 +219,7 @@
         layui.use(['laydate','form'], function(){
         var laydate = layui.laydate;
         var  form = layui.form;
-
-
-        // 监听全选
+       // 监听全选
         form.on('checkbox(checkall)', function(data){
 
           if(data.elem.checked){
@@ -240,10 +242,6 @@
 
 
       });
-
-     
-     
-
       /*用户-删除*/
       function member_del(obj,studentid){
     	
@@ -296,11 +294,10 @@
                       });
           		}else{alert("删除失败")}
           	}            	  
-            })
-            
+            })            
         });
       }	
-      
+      //调用年龄函数
       window.onload=function(){
    	   jsageall();
       }

@@ -65,7 +65,11 @@ function del(facultyid){
                         </div>
                         <div class="layui-card-header">
                             <button class="layui-btn layui-btn-danger layui-btn-lg" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn layui-btn-lg"  onclick="xadmin.open('新增学院','${pageContext.request.contextPath}/faculty/addfaculty',600,400)"><i class="layui-icon"></i>添加</button>
+
+                            <button class="layui-btn" onclick="xadmin.open('新增学院','${pageContext.request.contextPath}/faculty/addfaculty',330,260)"><i class="layui-icon"></i>添加</button>
+
+                           <%--  <button class="layui-btn layui-btn-lg"  onclick="xadmin.open('新增学院','${pageContext.request.contextPath}/faculty/addfaculty',600,400)"><i class="layui-icon"></i>添加</button> --%>
+
                         </div>
                         <div class="layui-card-body ">
                             <table class="layui-table" lay-filter="mylist" lay-size="lg">
@@ -82,15 +86,21 @@ function del(facultyid){
                               <tbody>
                                <c:forEach items="${faculties}" var="item">
                                 <tr>
-                                  <td><input type="checkbox" name=""  lay-skin="primary"></td>
+								<td><input type="checkbox" name=""  lay-skin="primary"></td>
                                   <td>${item.facultyid}</td>
                                   <td>${item.facultynumber}</td>
                                   <td>${item.facultyname}</td>
+
+                                  <td class="td-manage">
+                                    <button class="layui-btn layui-btn layui-btn-xs"  onclick="xadmin.open('编辑信息','${pageContext.request.contextPath}/faculty/update?facultyid=${item.facultyid}',330,260)" href="javascript:;">
+                                        <i class="layui-icon">&#xe642;</i>修改</button>
+<%-- 
                                   <td class="td-manage">
                                   <button class="layui-btn layui-btn layui-btn" 
                                        onclick="xadmin.open('编辑信息','${pageContext.request.contextPath}/faculty/update?facultyid=${item.facultyid}',600,400)" href="javascript:;">
                                        <i class="layui-icon">&#xe642;</i>修改
-                                      </button>
+
+                                      </button> --%>
                                       <button class="layui-btn-danger layui-btn layui-btn"
                                      onclick="del('${item.facultyid}')" href="javascript:;">
                                      <i class="layui-icon">&#xe640;</i>删除

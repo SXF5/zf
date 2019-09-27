@@ -76,7 +76,7 @@ public class CourseController {
 		}
 	}
 	
-	//删除
+/*	//删除
 	@RequestMapping("byidcourse")
 	@ResponseBody
 	public ResultMsg byidcourse(int courseid) {
@@ -86,7 +86,7 @@ public class CourseController {
 		}else {
 			return new ResultMsg(2, "删除 失败");
 		}
-	}
+	}*/
     
 	//批量删除
 	@RequestMapping("byincourse")
@@ -115,43 +115,22 @@ public class CourseController {
 		mv.addObject("list",list);
 		return mv;
 	}
-	
-/*	//excel
-	@RequestMapping("Excelin")
-    public String importfile(MultipartFile file) throws Exception {
-        InputStream in = file.getInputStream();
-        Course course = null;
-        int result = 0;
-        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(in);
-        //HSSFWorkbook hssfWorkbook = new HSSFWorkbook(in);
-        for(int numSheet = 0; numSheet < xssfWorkbook.getNumberOfSheets(); numSheet++){
-            XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(numSheet);
-            if(xssfSheet == null) continue;
 
-            for(int rowNum = 1; rowNum <= xssfSheet.getLastRowNum(); rowNum++){
-                XSSFRow xssfRow = xssfSheet.getRow(rowNum);
-                System.out.println("开始---------"+xssfRow.getLastCellNum());
-                course = new Course();
-                for(int i = 0; i < xssfRow.getLastCellNum(); i++){
-                    XSSFCell cell = xssfRow.getCell(i);
-                    xssfRow.getCell(i).setCellType(cell.CELL_TYPE_STRING);
-                    if(i == 0) course.setCoursenumber(xssfRow.getCell(0).getStringCellValue());
-                    if(i == 1) course.setCoursename(xssfRow.getCell(1).getStringCellValue());
-                    if(i == 2) course.setMajorid(Integer.valueOf(xssfRow.getCell(2).getStringCellValue()));
-                }
-                result = courseService.addcourse(course);
-            }
-        }
-        if(result >= 0)
-            return "success";
-        else
-            return "fail";
-    }*/
-	
+	//课程信息excel导入
 	@RequestMapping("courseimport")
+	public ModelAndView courseimport() {
+		ModelAndView mv = new ModelAndView("course/course-import");
+		
+		return mv;
+	}
+
+	
+
+	
+	/*@RequestMapping("courseimport")
 	public String test() {
 		return "/course/course-import";
-	}
+	}*/
 	
 	//Excelutil 
 	@RequestMapping("Excelin")
