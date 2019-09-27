@@ -193,9 +193,9 @@ margin-top:10px;}
                 <div class="layui-col-md12">
                     <div class="layui-card">
                          <div class="layui-card-body ">
-                            <form class="layui-form layui-col-space5" action="${pageContext.request.contextPath}/course/mselect">
+                            <form class="layui-form layui-col-space5" action="${pageContext.request.contextPath}/teaching/mselect">
                                 <div class="layui-inline layui-show-xs-block">
-                                    <input id="mlike" type="text" name="coursename"  placeholder="请输入课程名" autocomplete="off" class="layui-input">
+                                    <input id="mlike" type="text" name="name"  placeholder="请输入教师姓名" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
                                     <button type="submit" class="layui-btn"  lay-submit=""   lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>

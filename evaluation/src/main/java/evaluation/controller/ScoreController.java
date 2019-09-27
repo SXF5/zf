@@ -64,13 +64,8 @@ public class ScoreController {
 	    
 			//模糊查询
 			@RequestMapping("mselect")
-			public ModelAndView mselect(int teachingid) {
-				List<Score> list = scoreService.mhselect(teachingid);
-				/*for(Course course : list) {
-					System.out.println(course.getCourseid());
-				}*/
-					
-				
+			public ModelAndView mselect(String teachername) {
+				List<Score> list = scoreService.mhselect(teachername);
 				ModelAndView mv = new ModelAndView("score/scorelist");
 				mv.addObject("scores",list);
 				return mv;

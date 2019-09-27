@@ -126,5 +126,13 @@ public class TeachingController {
 		   }
 	 }
 	 
+	//模糊查询
+			@RequestMapping("mselect")
+			public ModelAndView Mselect(String name) {
+				List<Teaching> list = teachingService.mhselect(name);							
+				ModelAndView mv = new ModelAndView("teaching/teachinglist");
+				mv.addObject("teachings",list);
+				return mv;
+			}
 
 }

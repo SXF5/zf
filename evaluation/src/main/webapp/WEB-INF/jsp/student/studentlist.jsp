@@ -44,12 +44,12 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
-                            <form class="layui-form layui-col-space5">                      
+                            <form class="layui-form layui-col-space5" action="${pageContext.request.contextPath}/student/mselect">                      
                                 <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                                    <input type="text" name="name"  placeholder="请输入学生名" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
-                                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                                    <button type="submit" id="mlike" class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
                                 </div>
                             </form>
                         </div>
@@ -301,6 +301,34 @@
       window.onload=function(){
    	   jsageall();
       }
+      
+    //模糊查询
+      function selectm(){
+     	 var name = $("#mlike").val();
+     	 alert(name);
+     	 $.ajax({
+     		 type:"post",
+     		 url:"${pageContext.request.contextPath}/student/mselect",
+     		 data:{"name":name},
+     		 success:function(data){
+     			 if(data.flag == 1){
+          			layer.alert("查询成功", {
+                          icon: 1
+                      },function(){
+                      	xadmin.father_reload();
+                      });
+          		}else{
+          			layer.alert("查询失败", {
+                         icon: 1
+                     },function(){
+                     	xadmin.father_reload();
+                     });
+          		}
+     		 }
+     	 })
+      }
+      
+      
     </script>
      
 </html>

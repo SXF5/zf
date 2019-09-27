@@ -2,6 +2,9 @@ package evaluation.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+
 import evaluation.entity.Student;
 
 public interface StudentDao {
@@ -17,4 +20,6 @@ public interface StudentDao {
 	//批量删除
 	int studentall(String[] aa1);
 	int studentadd(Student student);
+	//模糊查询
+	List<Student> mhselect(@Param("name")String name);
 }

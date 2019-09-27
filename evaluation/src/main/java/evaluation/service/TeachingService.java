@@ -10,6 +10,7 @@ import evaluation.entity.Classtb;
 import evaluation.entity.Course;
 import evaluation.entity.Faculty;
 import evaluation.entity.Major;
+
 import evaluation.entity.Teacher;
 import evaluation.entity.Teaching;
 
@@ -62,6 +63,12 @@ public class TeachingService {
 	public int delcheck(String[] ids1) {
 		return teachingDao.delcheck(ids1);
 	}
-	
+	//模糊查询
+		public List<Teaching> mhselect(String name){
+					List<Teaching> list = teachingDao.mhselect(name);
+					return list;
+					
+				}
+		
 	
 }

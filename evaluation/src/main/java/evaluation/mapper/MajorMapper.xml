@@ -49,8 +49,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      	</delete>
       
       <!-- 模糊查询 -->
-     	<select id="mhselect" parameterType="String" resultType="evaluation.entity.Major">
-     		select * from major where majorname like '%${majorname}%'
+     	<select id="mhselect" parameterType="String" resultMap="major">
+     		select * from major,faculty where majorname like '%${majorname}%'
      	
      	</select>
 </mapper>

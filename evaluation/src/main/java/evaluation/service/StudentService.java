@@ -47,4 +47,11 @@ public class StudentService {
 			
 			return studentDao.studentadd(student);
 		} 
+      //模糊查询
+    	public List<Student> mhselect(String name){
+    				List<Student> list = studentDao.mhselect(name);
+    				return list;
+    				
+    			}
+    	
 	}

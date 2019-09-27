@@ -105,8 +105,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      	</delete>
 
  <!-- 模糊查询 -->
-     	<select id="mhselect" parameterType="String" resultType="evaluation.entity.Teacher">
-     		select * from teacher where name like '%${name}%'
+     	<select id="mhselect" parameterType="String" resultMap="teachertm">
+     		select * from teacher,major where name like '%${name}%'
      	</select>      
 
 

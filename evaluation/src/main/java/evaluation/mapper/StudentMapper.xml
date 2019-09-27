@@ -54,8 +54,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   <foreach collection="array" item="aa1" open="(" separator="," close=")">
 	   #{aa1}
 	   </foreach>
-	   
-	  
-	  
 	  </delete>
+	  
+	   <!-- 模糊查询 -->
+     	<select id="mhselect" parameterType="String" resultMap="studentm">
+     		select * from student,classtb where name like '%${name}%'
+     	</select>
 </mapper>

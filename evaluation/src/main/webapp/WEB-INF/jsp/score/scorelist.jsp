@@ -34,7 +34,7 @@
                          <div class="layui-card-body ">
                            <form class="layui-form layui-col-space5" action="${pageContext.request.contextPath}/score/mselect"> 
                                 <div class="layui-inline layui-show-xs-block">
-                                    <input id="mlike" type="text" name="teachingid"  placeholder="请输如教师姓名" autocomplete="off" class="layui-input">
+                                    <input id="mlike" type="text" name="teachername"  placeholder="请输入教师姓名" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
                                     <button type="submit" class="layui-btn layui-btn-lg"  lay-submit=""   lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -244,11 +244,11 @@
       //模糊查询
       function selectm(){
      	 var id = $("#mlike").val();
-     	 alert(id);
+     	 alert(name);
      	 $.ajax({
      		 type:"post",
      		 url:"${pageContext.request.contextPath}/score/mselect",
-     		 data:{"teachingid":id},
+     		 data:{"teachername":teachername},
      		 success:function(data){
      			 if(data.flag == 1){
           			layer.alert("查询成功", {

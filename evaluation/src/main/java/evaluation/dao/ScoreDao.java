@@ -21,7 +21,7 @@ public interface ScoreDao {
 	//根据id批量删除
 	int delAllScore(String[] ids);
 	//模糊查询
-	List<Score> mhselect(@Param("teachingid")int teachingid);
+	List<Score> mhselect(@Param("teachername")String teachername);
 	
 
 }

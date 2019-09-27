@@ -41,10 +41,10 @@
                         <div class="layui-card-body ">
                             <form class="layui-form layui-col-space5" action="${pageContext.request.contextPath}/teacher/mselect">
                                 <div class="layui-inline layui-show-xs-block">
-                                    <input id="mlike" type="text" name="name"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                                    <input id="mlike" type="text" name="name"  placeholder="请输入教师姓名" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block ">
-                                    <button class="layui-btn layui-btn-lg"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                                    <button  type="submit" class="layui-btn layui-btn-lg"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
                                 </div>
                             </form>
                         </div>

@@ -79,6 +79,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	#{ids1}
     </foreach>
 </delete>
-          
+        
+      <!-- 模糊查询 -->
+     	<select id="mhselect" parameterType="String" resultMap="teachingtm">
+     		 select course.coursename,classtb.classname,teach_v.name,teach_v.majorname,teaching.teachingid
+ 		from teaching left JOIN course ON course.courseid=teaching.courseid
+ 		LEFT JOIN classtb on classtb.classid=teaching.classid
+		left JOIN teach_v on teach_v.teacherid=teaching.teacherid where teach_v.name like '%${name}%';
+     	</select>      
             
 </mapper>

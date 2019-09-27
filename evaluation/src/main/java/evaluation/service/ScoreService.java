@@ -37,8 +37,8 @@ public class ScoreService {
 			return scoreDao.delAllScore(ids);
 		}
 	//模糊查询
-	public List<Score> mhselect(int teachingid){
-				List<Score> list = scoreDao.mhselect(teachingid);
+	public List<Score> mhselect(String teachername){
+				List<Score> list = scoreDao.mhselect(teachername);
 				return list;
 				
 			}

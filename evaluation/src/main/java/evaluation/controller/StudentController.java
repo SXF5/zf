@@ -22,6 +22,7 @@ import evaluation.service.StudentService;
 import evaluation.util.Excelutil;
 import evaluation.entity.Classtb;
 import evaluation.entity.ResultMsg;
+import evaluation.entity.Score;
 
 @Controller
 @RequestMapping("/student")
@@ -194,5 +195,15 @@ public class StudentController {
  		}
        return "student/student-import";
 	}
+	
+	//模糊查询
+	@RequestMapping("mselect")
+	public ModelAndView mselect(String name) {
+		List<Student> list =getStus.mhselect(name);
+		ModelAndView mv = new ModelAndView("student/studentlist");
+		mv.addObject("students",list);
+		return mv;
+	}
+
 
 }
